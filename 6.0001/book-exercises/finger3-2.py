@@ -7,9 +7,9 @@ s = '1.23,2.4,3.123'
 ans = 0
 num = ''
 
-for d in range(len(s)):
-    if s[d] != ',': 
-        num += s[d]
+for d in s:
+    if d != ',': 
+        num += d
     else: 
         ans += float(num)
         num = ''
