@@ -3,20 +3,20 @@
 
 eps = 0.01
 # initial given value
-initVal = 25.0
+initVal = -9.0
 
 
 
 def newt(eps, initVal, root): 
     initVal = float(initVal)
-    guess = initVal/2.0
+    guess = initVal/2.0 if initVal >= 0 else complex(initVal/2.0, initVal/2.0)
     TotalGuesses = 0
     while abs(abs(guess)**root- abs(initVal)) >= eps:
         TotalGuesses += 1
         guess = guess - (((guess**root) - initVal)/(root*guess**(root-1)))
 
     print (f'Total guesses (Newton-Raphson): {TotalGuesses}')
-    print (f'The square root of {initVal} is about {round(guess,len(str(eps)))}')
+    print (f'The square root of {initVal} is about {guess}')
     return TotalGuesses
 
 def bisec(eps, initVal, root):
@@ -39,7 +39,7 @@ def bisec(eps, initVal, root):
 
     # prints total guesses and guesswer
     print (f'Total guesses (bisectional): {totalGuesses}')
-    print (f'{round(guess,len(str(eps)))} is close to sqrt of {initVal}')
+    print (f'{guess} is close to sqrt of {initVal}')
     return totalGuesses
 
 
