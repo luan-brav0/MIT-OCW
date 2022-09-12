@@ -1,8 +1,8 @@
 # Newton-Raphson for square root 
 # Find x such that x**2 - 24 is within epsilon of 0
-
+# although the book is about to teach functions in python in the subsequent part of the book. I opted to use functions for this exercise as my goal is to go as fast as possible
 eps = 0.01
-# initial given value
+# initial given valueg
 initVal = -9.0
 
 
