@@ -8,6 +8,12 @@ initVal = -9.0
 
 
 def newt(eps, initVal, root): 
+    '''
+    Assumes eps, InitVal, and root ints or floats
+        eps > 0 
+    Returns int totalGuesses such that each guess tries to find guess**root equal to initVal within eps by Newton-Raphson method        
+        if fails to find a valid guess, it retuns 0
+    '''
     initVal = float(initVal)
     guess = initVal/2.0 if initVal >= 0 else complex(initVal/2.0, initVal/2.0)
     TotalGuesses = 0
@@ -20,6 +26,12 @@ def newt(eps, initVal, root):
     return TotalGuesses
 
 def bisec(eps, initVal, root):
+    '''
+    Assumes eps, InitVal, and root ints or floats
+        eps > 0 
+    Returns int totalGuesses such that each guess tries to find guess**root equal to initVal within eps with Bisectional method
+        if fails to find a valid guess, retuns 0
+    '''
     high = max(1.0, initVal) if initVal > 0 else min(-1.0, initVal)
     low = 0.0
     guess = (high + low)/2.0
