@@ -27,19 +27,19 @@ def newt(eps, initVal, root):
 
 def bisec(eps, initVal, root):
     '''
-    Assumes eps, InitVal, and root ints or floats
+    Assumes eps, InitVal, and root are ints or floats
         eps > 0 
-    Returns int totalGuesses such that each guess tries to find guess**root equal to initVal within eps with Bisectional method
-        if fails to find a valid guess, retuns 0
+    Returns int totalGuesses
     '''
     high = max(1.0, initVal) if initVal > 0 else min(-1.0, initVal)
     low = 0.0
     guess = (high + low)/2.0
     totalGuesses = 0
 
+
     # while the difference of initVal and cubed guess isn't eps or bigger 
     while abs(abs(guess)**root - abs(initVal)) >= eps:
-        
+    # portion_saved*    
         totalGuesses += 1
         # if cubed guess is bigger than initVal, low should be current value of guess, else high takes the value 
         if abs(guess**root) < abs(initVal): 
