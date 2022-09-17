@@ -1,5 +1,5 @@
 
-starting_salary = int(input("Enter the starting salary: "))
+annual_salary = int(input("Enter the starting salary: "))
 semi_annual_rise = 0.07
 annual_return = 0.04
 total_cost = 1000000
@@ -15,7 +15,7 @@ found = False
 
 while abs(min_rate - max_rate) > 1:
     steps += 1
-    annual_salary = starting_salary
+    # annual_salary = starting_salary
     monthly_saved = (annual_salary / 12.0) * (portion_saved / 10000)
     current_savings = 0.0
 

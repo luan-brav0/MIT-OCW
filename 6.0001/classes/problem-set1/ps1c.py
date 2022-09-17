@@ -55,7 +55,6 @@ starting_salary = round(float(input("Enter your annual salary: ")), 3)
 
 # annual_salary = 80000.00 
 # portion_saved = 0.15
-monthly_salary = starting_salary / 12 
 total_cost = 1000000.00
 semi_annual_raise = 1.07
 annual_return = 0.04
@@ -74,12 +73,18 @@ found = False
 
 while abs(min_saving_rate - max_saving_rate) > 1:
     steps += 1
+    monthly_salary = starting_salary / 12 
+
+    monthly_return = annual_return * (monthly_salary)
     monthly_saved = monthly_salary * (saving_portion/10000)
     current_savings = 0
     for month in range(1, total_months + 1):
         # monthly_saved = monthly_salary * (saving_portion/10000)
-        monthly_salary *= semi_annual_raise if month % 6 == 0  # checks month and applies semi-annual-raise
-        monthly_return = annual_return * (monthly_salary)
+        
+        # checks month and applies semi-annual-raise
+        if month % 6 == 0:
+            monthly_salary *= semi_annual_raise
+            monthly_return = annual_return * (monthly_salary)
         current_savings += monthly_return + monthly_saved
 
         if abs(current_savings - needed_down_payment) < epsilon:
