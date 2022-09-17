@@ -78,14 +78,10 @@ while abs(min_saving_rate - max_saving_rate) > 1:
     current_savings = 0
     for month in range(1, total_months + 1):
         # monthly_saved = monthly_salary * (saving_portion/10000)
-        
-        # checks month and applies semi-annual-raise
+        monthly_salary *= semi_annual_raise if month % 6 == 0  # checks month and applies semi-annual-raise
         monthly_return = annual_return * (monthly_salary)
         current_savings += monthly_return + monthly_saved
 
-        if month % 6 == 0:
-            monthly_salary *= semi_annual_raise  
-            monthly_return = annual_return * (monthly_salary)
         if abs(current_savings - needed_down_payment) < epsilon:
             found = True
             min_saving_rate = max_saving_rate
