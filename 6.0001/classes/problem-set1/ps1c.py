@@ -12,7 +12,7 @@ You should use bisection search to help you do this efficiently. You should keep
 steps it takes your bisections search to finish. You should be able to reuse some of the code you wrote
 for part B in this problem.
 Because we are searching for a value that is in principle a float, we are going to limit ourselves to two
-decimals of accuracy (i.e., we may want to save at 7.04% ­­ or 0.0704 in decimal – but we are not
+decimals of accuracy (i.e., we may want to save at 7.04% or 0.0704 in decimal - but we are not
 going to worry about the difference between 7.041% and 7.039%). This means we can search for an
 integer between 0 and 10000 (using integer division), and then convert it to a decimal percentage
 (using float division) to use when we are calculating the current_savings after 36 months. By using
@@ -59,38 +59,44 @@ monthly_salary = starting_salary / 12
 total_cost = 1000000.00
 semi_annual_raise = 1.07
 annual_return = 0.04
-portion_down_payment = total_cost * 0.25
+portion_down_payment = 0.25
 needed_down_payment = total_cost * portion_down_payment
 total_months = 36
-epsilon = 100
+
+epsilon = 100 # Tolerance from final returned value from total_cost of the house
 
 min_saving_rate = 0 
 max_saving_rate = 10000 # 100.00%
 saving_portion = (min_saving_rate + max_saving_rate)/2 # value to be returned; Averages for optimal saving rate in x 
 
-current_savings = 0
 steps = 0
 found = False
 
 while abs(min_saving_rate - max_saving_rate) > 1:
     steps += 1
     monthly_saved = monthly_salary * (saving_portion/10000)
+    current_savings = 0
     for month in range(1, total_months + 1):
         # monthly_saved = monthly_salary * (saving_portion/10000)
-        monthly_salary *= semi_annual_raise if month % 6 == 0 else 1 # checks month and applies semi-annual-raise
-        monthly_return = current_savings * (monthly_salary)
+        
+        # checks month and applies semi-annual-raise
+        monthly_return = annual_return * (monthly_salary)
         current_savings += monthly_return + monthly_saved
 
-        if abs(current_savings - portion_down_payment) < epsilon:
+        if month % 6 == 0:
+            monthly_salary *= semi_annual_raise  
+            monthly_return = annual_return * (monthly_salary)
+        if abs(current_savings - needed_down_payment) < epsilon:
             found = True
             min_saving_rate = max_saving_rate
             break
-        elif current_savings > portion_down_payment + 100:
+        elif current_savings > needed_down_payment + epsilon:
             break
         
-    if current_savings < portion_down_payment - 100:
+    if current_savings < needed_down_payment - epsilon:
         min_saving_rate = saving_portion
-    elif current_savings < portion_down_payment - 100:
+    
+    elif current_savings > needed_down_payment + epsilon:
         max_saving_rate = saving_portion
 
     saving_portion = int((max_saving_rate + min_saving_rate) / 2)
