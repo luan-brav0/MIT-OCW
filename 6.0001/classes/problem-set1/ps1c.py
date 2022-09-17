@@ -74,12 +74,10 @@ found = False
 while abs(min_saving_rate - max_saving_rate) > 1:
     steps += 1
     monthly_salary = starting_salary / 12 
-
     monthly_return = annual_return * (monthly_salary)
     monthly_saved = monthly_salary * (saving_portion/10000)
     current_savings = 0
     for month in range(1, total_months + 1):
-        # monthly_saved = monthly_salary * (saving_portion/10000)
         
         # checks month and applies semi-annual-raise
         if month % 6 == 0:
