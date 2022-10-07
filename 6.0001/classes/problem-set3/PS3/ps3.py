@@ -67,7 +67,9 @@ def get_frequency_dict(sequence):
 # Problem #1: Scoring a word
 #
 def get_word_score(word, n):
-    """
+    """Assumes str word and in n;
+    Returns int word_score.
+
     Returns the score for a word. Assumes the word is a
     valid word.
 
@@ -91,17 +93,35 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+    word = word.lower()   # Cleans input to only lower chars.
+    first_component = 0  # One of the score parameters to be evaluated, this one representing the score of the word played.
+    word_letters = get_frequency_dict(word) # Creates dict with keys of letters in word and value the amount of such letter in the word. 
     
-    pass  # TO DO... Remove this line when you implement this function
+    # Implementing first component.
+    for letter in word_letters:
+        first_component += word_letters[letter] * SCRABBLE_LETTER_VALUES[letter]
+    
+    # The other component evaluated to return score, this one representing by the "(7*len(word) - 3 * (n - len(word)))" or "1", whichever is greater.
+    second_component = (7*len(word) - 3 * (n - len(word))) if (7*len(word) - 3 * (n - len(word))) > 1 else 1
+
+    # Multiply componets to get score, returns.
+    word_score = first_component * second_component
+    return word_score
+
+
+# get word score print test with word 'banana' and value 
+print('Get banana score:', get_word_score('banana',2)) # out: 432 (nice number btw)
 
 #
 # Make sure you understand how this function works and what it does!
 #
 def display_hand(hand):
-    """
-    Displays the letters currently in the hand.
+    """Assues list dict hand; 
+    Returns None.
 
-    For example:
+    Displays (prints) the letters currently in the hand
+
+    For example:k
        display_hand({'a':1, 'x':2, 'l':3, 'e':1})
     Should print out something like:
        a x x l l l e
@@ -112,15 +132,16 @@ def display_hand(hand):
     
     for letter in hand.keys():
         for j in range(hand[letter]):
-             print(letter, end=' ')      # print all on the same line
-    print()                              # print an empty line
-
+             print(letter, end=' ' if j != len(hand) else end='')      # Prints all on the same line
+    
+display_hand({'a':1, 'x':2, 'l':3, 'e':1})
 #
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
 #
 def deal_hand(n):
-    """
+    """Assumes int n;
+    Returns list hand 
     Returns a random hand containing n lowercase letters.
     ceil(n/3) letters in the hand should be VOWELS (note,
     ceil(n/3) means the smallest integer not less than n/3).
@@ -178,7 +199,7 @@ def is_valid_word(word, hand, word_list):
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
     Does not mutate hand or word_list.
-   
+    
     word: string
     hand: dictionary (string -> int)
     word_list: list of lowercase strings

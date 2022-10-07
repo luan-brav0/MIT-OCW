@@ -120,7 +120,7 @@ def hangman(secret_word = "luan"):
     
     * Ask the user to supply one guess per round. Remember to make
       sure that the user puts in a letter!
-    
+  
     * The user should receive feedback immediately after each guess 
       about whether their guess appears in the computer's word.
 
@@ -163,7 +163,10 @@ def hangman(secret_word = "luan"):
       
       letters_guessed.append(letter.lower())
       alphabet = get_available_letters(letters_guessed, alphabet)
+
       print(guess_message, get_guessed_word(secret_word, letters_guessed)," \n ------------")
+
+
       if get_guessed_word(secret_word, letters_guessed) == secret_word:
         print("Congratulations, you won!")
         print(f"Your total score for this game is: {score}")
@@ -172,6 +175,7 @@ def hangman(secret_word = "luan"):
         if input("PLAY AGAIN? (Y = Yes // N = No)").upper() == "Y": 
           hangman(choose_word(wordlist))  
         break 
+
       elif guessed_remaining == 0:
         print(f"Sorry, you ran out of guesses. The word was: '{secret_word}'")
 
