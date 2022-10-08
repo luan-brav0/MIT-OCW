@@ -7,7 +7,9 @@
 # Collaborators : <your collaborators>
 # Time spent    : <total time>
 
-from ast import Break
+# TODO - Implement wildcards; finish play_game; clean code (delete "remove!")
+
+
 import math
 import random
 import re
@@ -148,6 +150,7 @@ def display_hand(hand, ending = ' '):
 # hand = {'a':1, 'b':2, 'c':3, 'd':1}    
 # display_hand(hand)
 # print('Letter in hand:', sum(hand.values()))
+
 #
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
@@ -245,10 +248,19 @@ def is_valid_word(word, hand, word_list):
     with open(words.txt) as w:
         list_words = w.read().splitlines()
 
+
     '''
     with open('words.txt') as w:
         list_words = w.read().splitlines()
     
+    # TODO - implement wildcards
+    '''
+    IGNORE - implementation wildcards
+    at git word score, check for *
+    if yes, search regex with vowels in word
+    if more than one word shows as possible result, evaluate word points for each and pick one of the largest (reorder list and pick at index 0)
+     check for highest point word 
+    '''
     def word_in_hand(word = word, hand = hand):
         '''Tries a similar thing as "update_hand()", but returns bool instead. Assumes is_valid_word()'s hand and word values.'''
         try:
@@ -429,9 +441,26 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
-    
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
-    
+    print("WELCOME TO WORD.PY GAME")
+    print(f"Rules:\n\tYou, the player, will have a hand of {HAND_SIZE} letters and you must try to make as many points by making words with such hand.\n\tYou may have a wild card in your hand represented by the '*' sign. This can be used as any vowel in a word")
+
+    numhands = int(input("How many players are going to play? :"))
+    hands = []
+    for hand in range(0,numhands):
+        hands[hand] = deal_hand(HAND_SIZE)
+        print(f'Hand {hand + 1}:', hands[hand])
+
+        if input('Would you like to substitute a group of letters (Y/[N])? :') == 'Y':
+            letter = ''
+            while letter not in hands[hand]:
+                letter = input(display_hand, "Which letter would you like to subst0itute?")
+                if letter not in hands[hand]:
+                    raise ValueError("Please enter a letter you have :", display_hand(hands[hand]))
+            substitute_hand()
+    f    
+    for hand in hands:
+        play_hand(hand, word_list)
+        
 
 
 #
