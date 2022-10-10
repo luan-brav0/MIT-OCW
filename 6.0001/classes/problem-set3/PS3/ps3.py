@@ -257,8 +257,9 @@ def is_valid_word(word, hand, word_list):
     word_list: list
     '''
     word = word.lower()
-    str_word_list = ' '.join(str(w) for w in word_list)
     word_dict = get_frequency_dict(word)
+    str_word_list = ' '.join(str(w) for w in word_list)
+
     word_in_hand = True
     for letter in word_dict.keys(): # for letters in word
         # Check if player the letter, and if has enough of them 
@@ -266,17 +267,15 @@ def is_valid_word(word, hand, word_list):
             word_in_hand = False
             break
 
-
     wild_in_list = False
     if "*" in word:
-        if re.search('.+'+word.split('*')[0]+'.+'+r'[aeiou]'+'.+'+word.split('*')[1]+'.+', str_word_list):
-            wild_matches = re.findall('.+'+word.split('*')[0]+'.+'+r'[aeiou]'+'.+'+word.split('*')[1]+'.+', str_word_list)
+        if re.search(r'\b{}[aeiou]\B{}'.format(word.split('*')[0], word.split('*')[1]), str_word_list):
+            wild_matches = re.findall(r'\b{}[aeiou]\B{}'.format(word.split('*')[0], word.split('*')[1]), str_word_list)
             wild_in_list = True   # word with wildcard matches a word in word_list
 
     
     return ((word in word_list) or wild_in_list) and word_in_hand
 
-print('B*nana valid:',is_valid_word('b*nana',{'a': 3, 'b': 2,'n':2, '*':1 }, word_list))
 #
 # Problem #5: Playing a hand
 #
@@ -351,7 +350,7 @@ def play_hand(hand, word_list):
                 print('Total score:', score)
 
             # update the user's hand by removing the letters of their inputted word
-            update_hand(hand, word)
+            hand = update_hand(hand, word)
     # Game is over (user entered '!!' or ran out of letters), 
     print('Done with hand...')
     # so tell user the total score
