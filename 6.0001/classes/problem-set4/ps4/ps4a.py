@@ -21,9 +21,12 @@ def get_permutations(sequence):
 
     Note: depending on your implementation, you may return the permutations in
     a different order than what is listed here.
-    '''
 
-    pass #delete this line and replace with your code here
+    sequence: string
+    returns: list (strings)
+    '''
+    
+
 
 if __name__ == '__main__':
 #    #EXAMPLE
